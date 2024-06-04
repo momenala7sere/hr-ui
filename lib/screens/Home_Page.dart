@@ -1,21 +1,16 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-
-import 'package:flutter/widgets.dart';
+import 'package:hr/screens/Profile_Page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const HomePage());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       home: MyDashboard(),
       theme: ThemeData(
         primaryColor: Colors.blue,
@@ -70,7 +65,10 @@ class MyDashboard extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(right: 16),
             child: CircleAvatar(
-              child: Icon(Icons.person),
+              child: Icon(
+                Icons.person,
+              ),
+              
             ),
           ),
         ],
@@ -85,7 +83,7 @@ class MyDashboard extends StatelessWidget {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               accountEmail: Text(
-                "Human resources-HR",
+                "Human Resources-HR",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               currentAccountPicture: ClipOval(
@@ -116,16 +114,22 @@ class MyDashboard extends StatelessWidget {
             ),
             Divider(
               color: Colors.grey,
-              thickness: 0.125,
+              thickness: 0.5,
               height: 20,
             ),
             ListTile(
               leading: Icon(Icons.calendar_month),
               title: Text('Hiring Date :01/04/2019'),
             ),
+            Divider(
+              color: Colors.grey,
+              thickness: 0.5,
+              height: 20,
+            ),
           ],
         ),
       ),
+      endDrawer: EndDrawerButton(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.count(

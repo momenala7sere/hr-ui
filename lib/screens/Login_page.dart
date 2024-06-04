@@ -1,4 +1,7 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
+import 'package:hr/screens/Home_Page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -86,6 +89,7 @@ class LoginPage extends StatelessWidget {
                                 activeColor: const Color(0xffCE5E52),
                                 onChanged: (bool? value) {
                                   if (value != null) {
+                                    // ignore: avoid_print
                                     print("Remember Me is: $value");
                                   }
                                 },
@@ -99,7 +103,9 @@ class LoginPage extends StatelessWidget {
                           ],
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/reset-password');
+                          },
                           child: const Text(
                             'Forgot My Password?',
                             style: TextStyle(color: Colors.white, fontSize: 13),
@@ -112,7 +118,9 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 const SizedBox(height: 50),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushReplacementNamed('/HomePage');
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xffCE5E52),
                     shape: RoundedRectangleBorder(
@@ -132,7 +140,7 @@ class LoginPage extends StatelessWidget {
                   "عربي",
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 15,
                 ),
                 const Text(
@@ -145,6 +153,5 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
-
   }
 }
