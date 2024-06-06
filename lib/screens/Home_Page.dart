@@ -1,5 +1,5 @@
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
-import 'package:hr/screens/Profile_Page.dart';
 
 void main() {
   runApp(const HomePage());
@@ -11,6 +11,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: MyDashboard(),
       theme: ThemeData(
         primaryColor: Colors.blue,
@@ -61,17 +62,6 @@ class MyDashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Dashboard'),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 16),
-            child: CircleAvatar(
-              child: Icon(
-                Icons.person,
-              ),
-              
-            ),
-          ),
-        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -129,7 +119,171 @@ class MyDashboard extends StatelessWidget {
           ],
         ),
       ),
-      endDrawer: EndDrawerButton(),
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const SizedBox(
+              height: 70,
+              child: DrawerHeader(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      // New Row for Icons
+                      children: <Widget>[
+                        Icon(Icons.home),
+                        SizedBox(width: 13.0),
+                        Icon(Icons.mail),
+                        SizedBox(width: 13.0),
+                        Icon(Icons.notifications),
+                      ],
+                    ),
+                    SizedBox(width: 13.0),
+                    Text(
+                      'Employee Code :0003 ',
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            // Add containers here
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Container(
+                  height: 140,
+                  width: 140,
+                  padding: const EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: const Color(0xffCE5E52),
+                    borderRadius: BorderRadius.circular(10.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color.fromARGB(255, 0, 0, 0)
+                            .withOpacity(0.3), // Adjust shadow color as needed
+                        blurRadius:
+                            5.0, // Adjust blur radius for shadow softness
+                        spreadRadius:
+                            1.0, // Adjust spread radius for shadow extension
+                        offset: const Offset(
+                            2.0, 2.0), // Adjust offset for shadow position
+                      ),
+                    ],
+                  ),
+                  child: const Column(
+                    children: <Widget>[
+                      Icon(
+                        Icons.person,
+                        size: 40,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        'Annual Leave',
+                        style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        '24 Days',
+                        style: TextStyle(fontSize: 16.0, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 140,
+                  width: 140,
+                  padding: const EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                    color: const Color(0xffCE5E52),
+                    borderRadius: BorderRadius.circular(10.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color.fromARGB(255, 0, 0, 0)
+                            .withOpacity(0.3), // Adjust shadow color as needed
+                        blurRadius:
+                            5.0, // Adjust blur radius for shadow softness
+                        spreadRadius:
+                            1.0, // Adjust spread radius for shadow extension
+                        offset: const Offset(
+                            2.0, 2.0), // Adjust offset for shadow position
+                      ),
+                    ],
+                  ),
+                  child: const Column(
+                    children: <Widget>[
+                      Icon(
+                        Icons.hotel,
+                        size: 40,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        'Sick Leave',
+                        style: TextStyle(
+                            fontSize: 12.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        '30 Days',
+                        style: TextStyle(fontSize: 16.0, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Divider(
+              thickness: 1.0, // Adjust thickness as needed
+              color: Colors.grey, // Adjust color as needed
+              height: 20.0, // Adjust height for spacing (optional)
+              indent: 10.0, // Adjust indent from left side (optional)
+              endIndent: 10.0, // Adjust indent from right side (optional)
+            ),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Sick Leave',
+                style: TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 0, 0, 0)),
+              ),
+            ), // Rest of your drawer content (text, etc.)
+            const Padding(
+              padding: EdgeInsets.only(left: 10),
+              child: DottedLine(
+                alignment: WrapAlignment.start,
+                direction: Axis.horizontal, // Adjust for horizontal line
+                lineThickness: 0.5,
+                lineLength: 200.0, // Adjust dash length
+                // Adjust gap between dashes
+              ),
+            ),
+          ],
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: GridView.count(
