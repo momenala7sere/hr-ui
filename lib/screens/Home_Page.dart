@@ -1,10 +1,6 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const HomePage());
-}
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -62,6 +58,24 @@ class MyDashboard extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Dashboard'),
+        actions: <Widget>[
+          Builder(
+            builder: (context) {
+              return Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: IconButton(
+                  icon: const Icon(
+                    Icons.account_circle,
+                    size: 30,
+                  ),
+                  onPressed: () {
+                    Scaffold.of(context).openEndDrawer();
+                  },
+                ),
+              );
+            },
+          ),
+        ],
       ),
       drawer: Drawer(
         child: ListView(
@@ -252,7 +266,7 @@ class MyDashboard extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             const Divider(
               thickness: 1.0, // Adjust thickness as needed
@@ -263,79 +277,182 @@ class MyDashboard extends StatelessWidget {
             ),
             const Padding(
               padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Sick Leave',
-                style: TextStyle(
-                    fontSize: 14.0,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 0, 0, 0)),
+              child: Row(
+                children: [
+                  Text(
+                    'Requested Vacations',
+                    style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey),
+                  ),
+                  SizedBox(
+                    width: 110,
+                  ),
+                  Text(
+                    '0 Days',
+                    style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 104, 104, 104)),
+                  ),
+                ],
               ),
-            ), // Rest of your drawer content (text, etc.)
+            ),
+            const Divider(
+              thickness: 1.0, // Adjust thickness as needed
+              color: Colors.grey, // Adjust color as needed
+              height: 20.0, // Adjust height for spacing (optional)
+              indent: 10.0, // Adjust indent from left side (optional)
+              endIndent: 10.0, // Adjust indent from right side (optional)
+            ),
             const Padding(
-              padding: EdgeInsets.only(left: 10),
-              child: DottedLine(
-                alignment: WrapAlignment.start,
-                direction: Axis.horizontal, // Adjust for horizontal line
-                lineThickness: 0.5,
-                lineLength: 200.0, // Adjust dash length
-                // Adjust gap between dashes
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Remaining Vacations',
+                    style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey),
+                  ),
+                  SizedBox(
+                    width: 110,
+                  ),
+                  Text(
+                    '24 Days',
+                    style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 104, 104, 104)),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(
+              thickness: 1.0, // Adjust thickness as needed
+              color: Colors.grey, // Adjust color as needed
+              height: 20.0, // Adjust height for spacing (optional)
+              indent: 10.0, // Adjust indent from left side (optional)
+              endIndent: 10.0, // Adjust indent from right side (optional)
+            ),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Remaining Sick Leave',
+                    style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey),
+                  ),
+                  SizedBox(
+                    width: 110,
+                  ),
+                  Text(
+                    '30 Days',
+                    style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 104, 104, 104)),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(
+              thickness: 1.0, // Adjust thickness as needed
+              color: Colors.grey, // Adjust color as needed
+              height: 20.0, // Adjust height for spacing (optional)
+              indent: 10.0, // Adjust indent from left side (optional)
+              endIndent: 10.0, // Adjust indent from right side (optional)
+            ),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Employee Rating',
+                    style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey),
+                  ),
+                  SizedBox(
+                    width: 110,
+                  ),
+                  Text(
+                    '85%',
+                    style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 104, 104, 104)),
+                  ),
+                ],
               ),
             ),
           ],
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: GridView.count(
-          crossAxisCount: 2,
-          children: List.generate(cardTitles.length, (index) {
+        padding: const EdgeInsets.all(8.0),
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 8.0,
+            mainAxisSpacing: 8.0,
+          ),
+          itemCount: cardTitles.length,
+          itemBuilder: (BuildContext context, int index) {
             return buildDashboardCard(context, cardTitles[index],
                 cardIcons[index], cardColors[index]);
-          }),
+          },
         ),
       ),
     );
   }
-}
 
-Widget buildDashboardCard(
-    BuildContext context, String title, IconData icon, Color cardColor) {
-  return Card(
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(10.0),
-    ),
-    child: InkWell(
-      onTap: () {},
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: cardColor,
-              borderRadius: const BorderRadius.only(
+  Widget buildDashboardCard(
+      BuildContext context, String title, IconData icon, Color cardColor) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      child: InkWell(
+        onTap: () {},
+        child: Stack(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: cardColor,
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10.0),
-                  topRight: Radius.circular(10.0)),
+                  topRight: Radius.circular(10.0),
+                ),
+              ),
+              height: 3.5,
             ),
-            height: 3.5,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    icon,
-                    size: 50.0,
-                    color: cardColor,
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(title),
-                ],
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      icon,
+                      size: 50.0,
+                      color: cardColor,
+                    ),
+                    const SizedBox(height: 8.0),
+                    Text(title),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
