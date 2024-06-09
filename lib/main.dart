@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hr/screens/Login_page.dart';
-
 import 'package:hr/screens/Reset_Password.dart';
 import 'package:hr/screens/Home_Page.dart';
+import 'package:hr/screens/Vacation_Requeste.dart'; // Import VacationRequestForm
 
 void main() {
   runApp(HRApp());
@@ -20,6 +20,8 @@ class HRApp extends StatelessWidget {
         '/login': (context) => const LoginPage(),
         '/reset-password': (context) => const ResetPassword(),
         '/HomePage': (context) => const HomePage(),
+        '/vacation-request': (context) =>
+            const VacationRequestForm(), // Add route
       },
       // ignore: dead_code
       initialRoute: isLoggedIn ? '/HomePage' : '/login',

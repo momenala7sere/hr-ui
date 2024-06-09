@@ -1,5 +1,8 @@
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:hr/screens/Leave_History.dart';
+import 'package:hr/screens/Leave_Requeste.dart';
+import 'package:hr/screens/Vacation_History.dart';
+import 'Vacation_Requeste.dart'; // Import the VacationRequestForm screen
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -420,7 +423,39 @@ class MyDashboard extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          if (title == 'Vacation Request') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const VacationRequestForm(),
+              ),
+            );
+          } else if (title == 'Leave Request') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const LeaveRequestForm(),
+              ),
+            );
+          } else if (title == 'Vacations History') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const VacationHistoryApp(),
+              ),
+            );
+          } else if (title == 'Leaves History') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const LeaveHistoryApp(),
+              ),
+            );
+          } else {
+            // Handle other cases or show a default action
+          }
+        },
         child: Stack(
           children: [
             Container(

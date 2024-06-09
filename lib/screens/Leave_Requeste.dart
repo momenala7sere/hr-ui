@@ -1,12 +1,4 @@
-import 'dart:ffi';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
-void main() {
-  runApp(const MyApp());
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -35,6 +27,27 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
   String _description = '';
   String _leavePeriod = '';
 
+  final TextEditingController _leaveDateController = TextEditingController();
+  final TextEditingController _leaveFromTimeController =
+      TextEditingController();
+  final TextEditingController _leaveToTimeController = TextEditingController();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _leaveDateController.text = '${_leaveDate.toLocal()}'.split(' ')[0];
+    _leaveFromTimeController.text = _leaveFromTime.format(context);
+    _leaveToTimeController.text = _leaveToTime.format(context);
+  }
+
+  @override
+  void dispose() {
+    _leaveDateController.dispose();
+    _leaveFromTimeController.dispose();
+    _leaveToTimeController.dispose();
+    super.dispose();
+  }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -45,6 +58,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
     if (picked != null && picked != _leaveDate) {
       setState(() {
         _leaveDate = picked;
+        _leaveDateController.text = '${_leaveDate.toLocal()}'.split(' ')[0];
       });
     }
   }
@@ -58,8 +72,10 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
       setState(() {
         if (isFrom) {
           _leaveFromTime = picked;
+          _leaveFromTimeController.text = _leaveFromTime.format(context);
         } else {
           _leaveToTime = picked;
+          _leaveToTimeController.text = _leaveToTime.format(context);
         }
       });
     }
@@ -109,6 +125,12 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                 onChanged: (value) {
                   // Handle change
                 },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select a leave type';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16.0),
               TextFormField(
@@ -120,9 +142,14 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                     onPressed: () => _selectDate(context),
                   ),
                 ),
+                controller: _leaveDateController,
                 onTap: () => _selectDate(context),
-                controller: TextEditingController(
-                    text: '${_leaveDate.toLocal()}'.split(' ')[0]),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select a leave date';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16.0),
               DropdownButtonFormField<String>(
@@ -147,6 +174,12 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                     _leavePeriod = value!;
                   });
                 },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please select a leave period';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16.0),
               TextFormField(
@@ -158,9 +191,15 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                     onPressed: () => _selectTime(context, true),
                   ),
                 ),
+                controller: _leaveFromTimeController,
                 onTap: () => _selectTime(context, true),
-                controller:
-                    TextEditingController(text: _leaveFromTime.format(context)),
+                validator: (value) {
+                  if (_leavePeriod != 'full_day' &&
+                      (value == null || value.isEmpty)) {
+                    return 'Please select a start time';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16.0),
               TextFormField(
@@ -172,9 +211,15 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                     onPressed: () => _selectTime(context, false),
                   ),
                 ),
+                controller: _leaveToTimeController,
                 onTap: () => _selectTime(context, false),
-                controller:
-                    TextEditingController(text: _leaveToTime.format(context)),
+                validator: (value) {
+                  if (_leavePeriod != 'full_day' &&
+                      (value == null || value.isEmpty)) {
+                    return 'Please select an end time';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16.0),
               TextFormField(
@@ -186,6 +231,12 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                 maxLines: 3,
                 onChanged: (value) {
                   _description = value;
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a description';
+                  }
+                  return null;
                 },
               ),
               const SizedBox(height: 16.0),
@@ -235,8 +286,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                         ),
                         style: OutlinedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                6.0), // Adjust radius as needed
+                            borderRadius: BorderRadius.circular(6.0),
                           ),
                           side: const BorderSide(
                             color: Color.fromARGB(255, 112, 112, 112),
@@ -262,7 +312,8 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                         label: const Text(
                           'Save',
                           style: TextStyle(
-                              color: Color.fromARGB(255, 255, 255, 255)),
+                            color: Color.fromARGB(255, 255, 255, 255),
+                          ),
                         ),
                         style: OutlinedButton.styleFrom(
                           backgroundColor: Colors.red,

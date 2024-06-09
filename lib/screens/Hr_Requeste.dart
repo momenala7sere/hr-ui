@@ -1,8 +1,4 @@
-import 'dart:ffi';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,19 +11,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: LeaveRequestForm(),
+      home: HrRequestForm(),
     );
   }
 }
 
-class LeaveRequestForm extends StatefulWidget {
-  const LeaveRequestForm({super.key});
+class HrRequestForm extends StatefulWidget {
+  const HrRequestForm({super.key});
 
   @override
   _LeaveRequestFormState createState() => _LeaveRequestFormState();
 }
 
-class _LeaveRequestFormState extends State<LeaveRequestForm> {
+class _LeaveRequestFormState extends State<HrRequestForm> {
   final _formKey = GlobalKey<FormState>();
   DateTime _leaveDate = DateTime.now();
   TimeOfDay _leaveFromTime = TimeOfDay.now();

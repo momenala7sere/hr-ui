@@ -1,24 +1,4 @@
-import 'dart:ffi';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: VacationRequestForm(),
-    );
-  }
-}
 
 class VacationRequestForm extends StatefulWidget {
   const VacationRequestForm({super.key});
@@ -36,6 +16,23 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
   String _alternativeEmployee = '';
   String _employeePhoneNumber = '';
 
+  final TextEditingController _startDateController = TextEditingController();
+  final TextEditingController _endDateController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _startDateController.text = '${_startDate.toLocal()}'.split(' ')[0];
+    _endDateController.text = '${_endDate.toLocal()}'.split(' ')[0];
+  }
+
+  @override
+  void dispose() {
+    _startDateController.dispose();
+    _endDateController.dispose();
+    super.dispose();
+  }
+
   Future<void> _selectDate(BuildContext context, bool isStart) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -47,8 +44,10 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
       setState(() {
         if (isStart) {
           _startDate = picked;
+          _startDateController.text = '${_startDate.toLocal()}'.split(' ')[0];
         } else {
           _endDate = picked;
+          _endDateController.text = '${_endDate.toLocal()}'.split(' ')[0];
         }
       });
     }
@@ -109,9 +108,7 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
                     onPressed: () => _selectDate(context, true),
                   ),
                 ),
-                onTap: () => _selectDate(context, true),
-                controller: TextEditingController(
-                    text: '${_startDate.toLocal()}'.split(' ')[0]),
+                controller: _startDateController,
               ),
               const SizedBox(height: 16.0),
               TextFormField(
@@ -123,9 +120,7 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
                     onPressed: () => _selectDate(context, false),
                   ),
                 ),
-                onTap: () => _selectDate(context, false),
-                controller: TextEditingController(
-                    text: '${_endDate.toLocal()}'.split(' ')[0]),
+                controller: _endDateController,
               ),
               const SizedBox(height: 16.0),
               TextFormField(
@@ -195,74 +190,72 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
               ),
               const SizedBox(height: 16.0),
               Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: 120,
-                        height: 35,
-                        child: OutlinedButton.icon(
-                          onPressed: () {
-                            // Handle discard
-                          },
-                          icon: const Icon(
-                            Icons.delete,
-                            size: 16,
-                            color: Colors.black,
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                      width: 120,
+                      height: 35,
+                      child: OutlinedButton.icon(
+                        onPressed: () {
+                          // Handle discard
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          size: 16,
+                          color: Colors.black,
+                        ),
+                        label: const Text(
+                          'Discard',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.0),
                           ),
-                          label: const Text(
-                            'Discard',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                          style: OutlinedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  6.0), // Adjust radius as needed
-                            ),
-                            side: const BorderSide(
-                              color: Color.fromARGB(255, 112, 112,
-                                  112), // Set your desired border color
-                              width: 1.0, // Adjust border width
-                            ),
+                          side: const BorderSide(
+                            color: Color.fromARGB(255, 112, 112, 112),
+                            width: 1.0,
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: 120,
-                        height: 35,
-                        child: OutlinedButton.icon(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              // Handle save
-                            }
-                          },
-                          icon: const Icon(
-                            Icons.save,
-                            size: 16,
+                    ),
+                    SizedBox(
+                      width: 120,
+                      height: 35,
+                      child: OutlinedButton.icon(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            // Handle save
+                          }
+                        },
+                        icon: const Icon(
+                          Icons.save,
+                          size: 16,
+                          color: Color.fromARGB(255, 255, 255, 255),
+                        ),
+                        label: const Text(
+                          'Save',
+                          style: TextStyle(
                             color: Color.fromARGB(255, 255, 255, 255),
                           ),
-                          label: const Text(
-                            'Save',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 255, 255, 255)),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.0),
                           ),
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: Colors.red,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  6.0), // Adjust radius as needed
-                            ),
-                            side: const BorderSide(
-                              color: Color(
-                                  0xffCE5E52), // Set your desired border color
-                              width: 1.0, // Adjust border width
-                            ),
+                          side: const BorderSide(
+                            color: Color(0xffCE5E52),
+                            width: 1.0,
                           ),
                         ),
                       ),
-                    ],
-                  ))
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
