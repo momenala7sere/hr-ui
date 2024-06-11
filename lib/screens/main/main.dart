@@ -34,5 +34,6 @@ class _HRAppState extends State<HRApp> {
       onGenerateRoute: RouterUtil.generateRoute,
       initialRoute: isLoggedIn ? '/HomePage' : '/login',
     );
+
   }
 }
