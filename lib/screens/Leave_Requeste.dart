@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hr/screens/home/HomePage.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -85,6 +86,15 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+          },
+        ),
         title: const Text(
           'New Leave',
           style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
@@ -92,7 +102,11 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
         actions: [
           TextButton(
             onPressed: () {
-              // Navigate to leave history page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const LeaveHistoryPage()),
+              );
             },
             child: const Text(
               'Leave History',
@@ -138,7 +152,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                 decoration: InputDecoration(
                   labelText: 'Leave Date',
                   suffixIcon: IconButton(
-                    icon: const Icon(Icons.calendar_today),
+                    icon: const Icon(Icons.calendar_month),
                     onPressed: () => _selectDate(context),
                   ),
                 ),
@@ -333,6 +347,22 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class LeaveHistoryPage extends StatelessWidget {
+  const LeaveHistoryPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Leave History'),
+      ),
+      body: const Center(
+        child: Text('This is the leave history page'),
       ),
     );
   }

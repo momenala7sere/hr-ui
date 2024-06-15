@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hr/screens/home/HomePage.dart';
 
 import 'package:intl/intl.dart';
 
@@ -27,18 +28,18 @@ class LeaveHistoryScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 255, 255, 255),
         title: const Text('Leaves History'),
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 30),
-          child: IconButton(
-            icon: const Icon(
-              Icons.history,
-              size: 25,
-              color: Color(0xffCE5E52),
-            ),
-            onPressed: () {
-              // Add functionality for icon press (optional)
-            },
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            size: 25,
+            color: Color.fromARGB(255, 0, 0, 0),
           ),
+          onPressed: () {
+           Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const HomePage ()),
+          );
+          },
         ),
       ),
       body: const Padding(

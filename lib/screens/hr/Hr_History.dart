@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hr/screens/home/HomePage.dart';
 
 import '../Leave_History.dart';
-
-
 
 void main() {
   runApp(const HrHistoryRequestApp());
 }
-
 
 class HrHistoryRequestApp extends StatelessWidget {
   const HrHistoryRequestApp({super.key});
@@ -19,8 +17,6 @@ class HrHistoryRequestApp extends StatelessWidget {
       home: HrHistoryRequestScreen(),
     );
   }
-
-
 }
 
 class HrHistoryRequestScreen extends StatelessWidget {
@@ -31,14 +27,14 @@ class HrHistoryRequestScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('HR History Request'),
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 25),
-          child: IconButton(
-            icon: const Icon(Icons.group, size: 30),
-            onPressed: () {
-              // Add functionality for icon press (optional)
-            },
-          ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, size: 30),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const HomePage()),
+            );
+          },
         ),
       ),
       body: const Padding(
@@ -48,5 +44,3 @@ class HrHistoryRequestScreen extends StatelessWidget {
     );
   }
 }
-
-

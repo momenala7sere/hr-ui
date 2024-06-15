@@ -94,9 +94,7 @@ class _TrackMyRequestState extends State<TrackMyRequest> {
       appBar: AppBar(
   title: const Row( // Use Row to position elements horizontally
     children: [
-      Icon(
-        Icons.route,color:  Color(0xffCE5E52), // Choose an appropriate icon (e.g., Icons.search for search functionality)
-      ),
+      
       SizedBox(width: 8.0), // Add spacing between icon and title
       Text('Track My Requests'),
     ],

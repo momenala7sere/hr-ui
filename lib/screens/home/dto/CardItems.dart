@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hr/screens/Track_My_Request.dart';
+import 'package:hr/screens/hr/Hr_History.dart';
+import 'package:hr/screens/hr/Hr_Requeste.dart';
 
 import '../../Leave_History.dart';
 import '../../Leave_Requeste.dart';
@@ -12,11 +15,6 @@ final List<CardData> cardItems = [
     icon: Icons.person_add,
     color: Colors.green,
     route: (context) => const VacationRequestForm(),
-  ),
-  CardData(
-    title: 'Job Description',
-    icon: Icons.assignment_ind,
-    color: Colors.red,
   ),
   CardData(
     title: 'Leave Request',
@@ -40,20 +38,18 @@ final List<CardData> cardItems = [
     title: 'HR Request',
     icon: Icons.groups,
     color: Colors.blueGrey,
+    route: (context) => const HrRequestForm(),
   ),
   CardData(
     title: 'HR Requests History',
     icon: Icons.history,
     color: Colors.purpleAccent,
+    route: (context) => const HrHistoryRequestApp(),
   ),
   CardData(
     title: 'Track My Request',
     icon: Icons.pin_drop,
     color: Colors.indigoAccent,
-  ),
-  CardData(
-    title: 'Purchase Request',
-    icon: Icons.shopping_cart,
-    color: Colors.grey,
+    route: (context) => const TrackMyRequest(),
   ),
 ];
