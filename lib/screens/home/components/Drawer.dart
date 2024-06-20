@@ -1,4 +1,7 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:hr/screens/home/HomePage.dart';
 
 Widget buildDrawer() {
   return Drawer(
@@ -43,19 +46,26 @@ Widget buildEndDrawer() {
     child: ListView(
       padding: EdgeInsets.zero,
       children: [
-        const SizedBox(
-          height: 70,
+        SizedBox(
+          height: 90,
           child: DrawerHeader(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Icon(Icons.home),
-                SizedBox(width: 13.0),
-                Icon(Icons.mail),
-                SizedBox(width: 13.0),
-                Icon(Icons.notifications),
-                SizedBox(width: 13.0),
-                Text(
+                IconButton(
+                  icon: const Icon(Icons.home),
+                  onPressed: () {
+                    MaterialPageRoute(
+                      builder: (context) => const HomePage(),
+                    );
+                  },
+                ),
+                const SizedBox(width: 13.0),
+                const Icon(Icons.mail),
+                const SizedBox(width: 13.0),
+                const Icon(Icons.notifications),
+                const SizedBox(width: 13.0),
+                const Text(
                   'Employee Code :0003 ',
                   style: TextStyle(
                     fontSize: 14.0,
@@ -66,6 +76,9 @@ Widget buildEndDrawer() {
             ),
           ),
         ),
+        const SizedBox(
+          height: 20,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -73,29 +86,28 @@ Widget buildEndDrawer() {
             buildStatusContainer(Icons.hotel, 'Sick Leave', '30 Days'),
           ],
         ),
-        const SizedBox(height: 5),
+        const SizedBox(height: 20),
         buildDivider(),
         buildStatusRow('Requested Vacations', '0 Days'),
         buildDivider(),
-        buildStatusRow('Remaining Vacations', '24 Days'),
-        buildDivider(),
         buildStatusRow('Remaining Sick Leave', '30 Days'),
-        buildDivider(),
-        buildStatusRow('Employee Rating', '85%'),
       ],
     ),
   );
 }
+
 Widget buildProfileButton(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.only(right: 8),
-    child: IconButton(
-      icon: const Icon(
-        Icons.account_circle,
-        size: 30,
-      ),
-      onPressed: () {
-        Scaffold.of(context).openEndDrawer();
+    child: Builder(
+      builder: (context) {
+        return IconButton(
+          icon: const Icon(
+            Icons.account_circle,
+            size: 30,
+          ),
+          onPressed: () => Scaffold.of(context).openEndDrawer(),
+        );
       },
     ),
   );
@@ -107,7 +119,6 @@ Widget buildDrawerItem(IconData icon, String text) {
     title: Text(text),
   );
 }
-
 
 Widget buildDivider() {
   return const Divider(

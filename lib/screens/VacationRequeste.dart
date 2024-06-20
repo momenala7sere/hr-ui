@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hr/screens/Vacation_History.dart';
 
 class VacationRequestForm extends StatefulWidget {
   const VacationRequestForm({super.key});
@@ -64,7 +65,11 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
         actions: [
           TextButton(
             onPressed: () {
-              // Navigate to vacation history page
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const VacationHistoryScreen()),
+              );
             },
             child: const Text(
               'Vacations History',
@@ -85,12 +90,36 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
                 ),
                 items: const [
                   DropdownMenuItem(
-                    value: 'personal',
-                    child: Text('Personal'),
+                    value: 'Funeral ',
+                    child: Text('Funeral '),
                   ),
                   DropdownMenuItem(
                     value: 'sick',
                     child: Text('Sick'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Official ',
+                    child: Text('Official '),
+                  ),
+                  DropdownMenuItem(
+                    value: 'maternity ',
+                    child: Text('maternity '),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Faction in exchange for working ',
+                    child: Text('Faction in exchange for working '),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Overtime  ',
+                    child: Text('Overtime  '),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Unpaid vacation   ',
+                    child: Text('Unpaid vacation '),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Umrah',
+                    child: Text('Umrah '),
                   ),
                   // Add more types if needed
                 ],
@@ -104,7 +133,7 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
                 decoration: InputDecoration(
                   labelText: 'Start Date',
                   suffixIcon: IconButton(
-                    icon: const Icon(Icons.calendar_today),
+                    icon: const Icon(Icons.calendar_month),
                     onPressed: () => _selectDate(context, true),
                   ),
                 ),
@@ -116,7 +145,7 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
                 decoration: InputDecoration(
                   labelText: 'End Date',
                   suffixIcon: IconButton(
-                    icon: const Icon(Icons.calendar_today),
+                    icon: const Icon(Icons.calendar_month),
                     onPressed: () => _selectDate(context, false),
                   ),
                 ),

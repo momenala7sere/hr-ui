@@ -134,6 +134,34 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                     value: 'sick',
                     child: Text('Sick'),
                   ),
+                  DropdownMenuItem(
+                    value: 'Official',
+                    child: Text('Official'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Funeral',
+                    child: Text('Funeral'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Maternity ',
+                    child: Text('Maternity '),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Vacation in exchange for working ',
+                    child: Text('Vacation in exchange for working '),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Overtime  ',
+                    child: Text('Overtime  '),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Unpaid vacation   ',
+                    child: Text('Unpaid vacation '),
+                  ),
+                  DropdownMenuItem(
+                    value: 'Umrah   ',
+                    child: Text('Umrah '),
+                  ),
                   // Add more types if needed
                 ],
                 onChanged: (value) {
@@ -173,9 +201,9 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                 items: const [
                   DropdownMenuItem(
                     value:
-                        'Leave during working hours - مغادرة خلال الدوام الرسمي ',
+                        'Leave during working hours',
                     child: Text(
-                        'Leave during working hours - مغادرة خلال الدوام الرسمي '),
+                        'Leave during working hours'),
                   ),
                   DropdownMenuItem(
                     value: 'full_day',

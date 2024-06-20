@@ -3,7 +3,7 @@ import '../main/router/Router.dart';
 import 'auth_service.dart';
 
 void main() {
-  runApp(HRApp());
+  runApp(const HRApp());
 }
 
 class HRApp extends StatefulWidget {

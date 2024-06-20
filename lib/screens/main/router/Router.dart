@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hr/screens/home/forms/LeaveRequestForm.dart';
+import 'package:hr/screens/home/forms/VacationHistoryApp.dart';
 import 'package:hr/screens/hr/Hr_Requeste.dart';
 
 import '../../Login_page.dart';
@@ -22,6 +23,8 @@ class RouterUtil {
         return MaterialPageRoute(builder: (_) => const LeaveRequestForm());
       case '/Hr-request':
         return MaterialPageRoute(builder: (_) => const HrRequestForm());
+      case '/vacation-history':
+        return MaterialPageRoute(builder: (_) => const VacationHistoryApp());
       default:
         return MaterialPageRoute(builder: (_) => const LoginPage());
     }
