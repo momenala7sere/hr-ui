@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hr/screens/Leave_History.dart';
 import 'package:hr/screens/home/HomePage.dart';
+import 'package:hr/localization_service.dart';
+import 'package:hr/screens/home/forms/LeaveHistoryApp.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -91,13 +94,17 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
+              MaterialPageRoute(
+                builder: (context) => HomePage(
+                  currentLocale: Localizations.localeOf(context), // Pass locale
+                ),
+              ),
             );
           },
         ),
-        title: const Text(
-          'New Leave',
-          style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+        title: Text(
+          LocalizationService.translate('new_leave'), // Localized title
+          style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
         ),
         actions: [
           TextButton(
@@ -105,12 +112,12 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const LeaveHistoryPage()),
+                    builder: (context) => const LeaveHistoryScreen()),
               );
             },
-            child: const Text(
-              'Leave History',
-              style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+            child: Text(
+              LocalizationService.translate('leave_history'), // Localized button
+              style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
             ),
           ),
         ],
@@ -122,54 +129,53 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
           child: ListView(
             children: [
               DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                  labelText: 'Leave Type',
+                decoration: InputDecoration(
+                  labelText: LocalizationService.translate('leave_type'),
                 ),
-                items: const [
+                items: [
                   DropdownMenuItem(
                     value: 'personal',
-                    child: Text('Personal'),
+                    child: Text(LocalizationService.translate('personal')),
                   ),
                   DropdownMenuItem(
                     value: 'sick',
-                    child: Text('Sick'),
+                    child: Text(LocalizationService.translate('sick')),
                   ),
                   DropdownMenuItem(
-                    value: 'Official',
-                    child: Text('Official'),
+                    value: 'official',
+                    child: Text(LocalizationService.translate('official')),
                   ),
                   DropdownMenuItem(
-                    value: 'Funeral',
-                    child: Text('Funeral'),
+                    value: 'funeral',
+                    child: Text(LocalizationService.translate('funeral')),
                   ),
                   DropdownMenuItem(
-                    value: 'Maternity ',
-                    child: Text('Maternity '),
+                    value: 'maternity',
+                    child: Text(LocalizationService.translate('maternity')),
                   ),
                   DropdownMenuItem(
-                    value: 'Vacation in exchange for working ',
-                    child: Text('Vacation in exchange for working '),
+                    value: 'vacation_in_exchange',
+                    child: Text(LocalizationService.translate('vacation_in_exchange')),
                   ),
                   DropdownMenuItem(
-                    value: 'Overtime  ',
-                    child: Text('Overtime  '),
+                    value: 'overtime',
+                    child: Text(LocalizationService.translate('overtime')),
                   ),
                   DropdownMenuItem(
-                    value: 'Unpaid vacation   ',
-                    child: Text('Unpaid vacation '),
+                    value: 'unpaid_vacation',
+                    child: Text(LocalizationService.translate('unpaid_vacation')),
                   ),
                   DropdownMenuItem(
-                    value: 'Umrah   ',
-                    child: Text('Umrah '),
+                    value: 'umrah',
+                    child: Text(LocalizationService.translate('umrah')),
                   ),
-                  // Add more types if needed
                 ],
                 onChanged: (value) {
                   // Handle change
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please select a leave type';
+                    return LocalizationService.translate('select_leave_type');
                   }
                   return null;
                 },
@@ -178,7 +184,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
               TextFormField(
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: 'Leave Date',
+                  labelText: LocalizationService.translate('leave_date'),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.calendar_month),
                     onPressed: () => _selectDate(context),
@@ -188,28 +194,26 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                 onTap: () => _selectDate(context),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please select a leave date';
+                    return LocalizationService.translate('select_leave_date');
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16.0),
               DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                  labelText: 'Leave Period',
+                decoration: InputDecoration(
+                  labelText: LocalizationService.translate('leave_period'),
                 ),
-                items: const [
+                items: [
                   DropdownMenuItem(
-                    value:
-                        'Leave during working hours',
+                    value: 'working_hours',
                     child: Text(
-                        'Leave during working hours'),
+                        LocalizationService.translate('working_hours')),
                   ),
                   DropdownMenuItem(
                     value: 'full_day',
-                    child: Text('Full Day'),
+                    child: Text(LocalizationService.translate('full_day')),
                   ),
-                  // Add more types if needed
                 ],
                 onChanged: (value) {
                   setState(() {
@@ -218,7 +222,7 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please select a leave period';
+                    return LocalizationService.translate('select_leave_period');
                   }
                   return null;
                 },
@@ -227,7 +231,8 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
               TextFormField(
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: 'Leave From Time',
+                  labelText:
+                      LocalizationService.translate('leave_from_time'),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.access_time),
                     onPressed: () => _selectTime(context, true),
@@ -238,7 +243,8 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                 validator: (value) {
                   if (_leavePeriod != 'full_day' &&
                       (value == null || value.isEmpty)) {
-                    return 'Please select a start time';
+                    return LocalizationService.translate(
+                        'select_start_time');
                   }
                   return null;
                 },
@@ -247,7 +253,8 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
               TextFormField(
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: 'Leave To Time',
+                  labelText:
+                      LocalizationService.translate('leave_to_time'),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.access_time),
                     onPressed: () => _selectTime(context, false),
@@ -258,17 +265,17 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                 validator: (value) {
                   if (_leavePeriod != 'full_day' &&
                       (value == null || value.isEmpty)) {
-                    return 'Please select an end time';
+                    return LocalizationService.translate('select_end_time');
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16.0),
               TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Description',
-                  hintText: "Please Enter Description",
-                  hintStyle: TextStyle(fontSize: 12),
+                decoration: InputDecoration(
+                  labelText: LocalizationService.translate('description'),
+                  hintText: LocalizationService.translate('enter_description'),
+                  hintStyle: const TextStyle(fontSize: 12),
                 ),
                 maxLines: 3,
                 onChanged: (value) {
@@ -276,7 +283,8 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                 },
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a description';
+                    return LocalizationService.translate(
+                        'enter_valid_description');
                   }
                   return null;
                 },
@@ -291,14 +299,14 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                   onTap: () {
                     // Handle file attachment
                   },
-                  child: const Padding(
-                    padding: EdgeInsets.all(16.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.attach_file),
-                        SizedBox(width: 8.0),
-                        Text('Attach'),
+                        const Icon(Icons.attach_file),
+                        const SizedBox(width: 8.0),
+                        Text(LocalizationService.translate('attach')),
                       ],
                     ),
                   ),
@@ -322,9 +330,9 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                           size: 16,
                           color: Colors.black,
                         ),
-                        label: const Text(
-                          'Discard',
-                          style: TextStyle(color: Colors.black),
+                        label: Text(
+                          LocalizationService.translate('discard'),
+                          style: const TextStyle(color: Colors.black),
                         ),
                         style: OutlinedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -351,9 +359,9 @@ class _LeaveRequestFormState extends State<LeaveRequestForm> {
                           size: 16,
                           color: Color.fromARGB(255, 255, 255, 255),
                         ),
-                        label: const Text(
-                          'Save',
-                          style: TextStyle(
+                        label: Text(
+                          LocalizationService.translate('save'),
+                          style: const TextStyle(
                             color: Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),
@@ -387,10 +395,10 @@ class LeaveHistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Leave History'),
+        title: Text(LocalizationService.translate('leave_history')),
       ),
-      body: const Center(
-        child: Text('This is the leave history page'),
+      body: Center(
+        child: Text(LocalizationService.translate('leave_history_page')),
       ),
     );
   }

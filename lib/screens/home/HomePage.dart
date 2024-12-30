@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:hr/localization_service.dart'; // Import localization service
 import 'components/DashboardCard.dart';
 import 'components/Drawer.dart';
 import 'dto/CardItems.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final Locale currentLocale;
+
+  const HomePage({super.key, required this.currentLocale});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const MyDashboard(),
+      home: MyDashboard(currentLocale: currentLocale),
       theme: ThemeData(
         primaryColor: Colors.blue,
       ),
@@ -19,17 +22,21 @@ class HomePage extends StatelessWidget {
 }
 
 class MyDashboard extends StatelessWidget {
-  const MyDashboard({super.key});
+  final Locale currentLocale;
+
+  const MyDashboard({super.key, required this.currentLocale});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Dashboard'),
+        title: Text(
+          LocalizationService.translate('dashboard_title'), // Translated title
+        ),
         actions: [buildProfileButton(context)],
       ),
-      drawer: buildDrawer(),
-      endDrawer: buildEndDrawer(),
+      drawer: buildDrawer(), // Retaining the drawer functionality
+      endDrawer: buildEndDrawer(), // Retaining the end drawer functionality
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
@@ -40,7 +47,11 @@ class MyDashboard extends StatelessWidget {
           ),
           itemCount: cardItems.length,
           itemBuilder: (BuildContext context, int index) {
-            return DashboardCard(cardData: cardItems[index]);
+            final translatedCardData = cardItems[index].copyWith(
+              title: LocalizationService.translate(
+                  cardItems[index].title), // Translated card title
+            );
+            return DashboardCard(cardData: translatedCardData);
           },
         ),
       ),

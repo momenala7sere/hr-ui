@@ -9,14 +9,31 @@ import '../../VacationRequeste.dart';
 import '../../home/HomePage.dart';
 
 class RouterUtil {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
+  static Route<dynamic> generateRoute(
+    RouteSettings settings, {
+    required Function(Locale) onChangeLanguage,
+    required Locale currentLocale,
+  }) {
     switch (settings.name) {
       case '/login':
-        return MaterialPageRoute(builder: (_) => const LoginPage());
+        return MaterialPageRoute(
+          builder: (_) => LoginPage(
+            onChangeLanguage: onChangeLanguage,
+            currentLocale: currentLocale,
+          ),
+        );
       case '/reset-password':
-        return MaterialPageRoute(builder: (_) => const ResetPasswordPage());
+        return MaterialPageRoute(
+          builder: (_) => ResetPasswordPage(
+            currentLocale: currentLocale, // Pass the current locale
+          ),
+        );
       case '/HomePage':
-        return MaterialPageRoute(builder: (_) => const HomePage());
+        return MaterialPageRoute(
+          builder: (context) => HomePage(
+            currentLocale: currentLocale, // Pass current locale
+          ),
+        );
       case '/vacation-request':
         return MaterialPageRoute(builder: (_) => const VacationRequestForm());
       case '/leave-request':
@@ -26,7 +43,12 @@ class RouterUtil {
       case '/vacation-history':
         return MaterialPageRoute(builder: (_) => const VacationHistoryApp());
       default:
-        return MaterialPageRoute(builder: (_) => const LoginPage());
+        return MaterialPageRoute(
+          builder: (_) => LoginPage(
+            onChangeLanguage: onChangeLanguage,
+            currentLocale: currentLocale,
+          ),
+        );
     }
   }
 }

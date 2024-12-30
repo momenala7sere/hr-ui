@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hr/localization_service.dart';
+import 'package:hr/screens/hr/Hr_History.dart'; // Import localization service
 
 void main() {
   runApp(const MyApp());
@@ -20,16 +22,13 @@ class HrRequestForm extends StatefulWidget {
   const HrRequestForm({super.key});
 
   @override
-  _LeaveRequestFormState createState() => _LeaveRequestFormState();
+  _HrRequestFormState createState() => _HrRequestFormState();
 }
 
-class _LeaveRequestFormState extends State<HrRequestForm> {
+class _HrRequestFormState extends State<HrRequestForm> {
   final _formKey = GlobalKey<FormState>();
   DateTime _leaveDate = DateTime.now();
-  TimeOfDay _leaveFromTime = TimeOfDay.now();
-  TimeOfDay _leaveToTime = TimeOfDay.now();
   String _description = '';
-  String _leavePeriod = '';
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -45,42 +44,32 @@ class _LeaveRequestFormState extends State<HrRequestForm> {
     }
   }
 
-  Future<void> _selectTime(BuildContext context, bool isFrom) async {
-    final TimeOfDay? picked = await showTimePicker(
-      context: context,
-      initialTime: isFrom ? _leaveFromTime : _leaveToTime,
-    );
-    if (picked != null && picked != (isFrom ? _leaveFromTime : _leaveToTime)) {
-      setState(() {
-        if (isFrom) {
-          _leaveFromTime = picked;
-        } else {
-          _leaveToTime = picked;
-        }
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'New HR Request',
-          style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              // Navigate to leave history page
-            },
-            child: const Text(
-              'HR Request History',
-              style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
-            ),
+  title: Text(
+    LocalizationService.translate('new_hr_request'), // Localized title
+    style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+  ),
+  actions: [
+    TextButton(
+      onPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HrHistoryRequestScreen(), // Navigate to HrHistoryRequestScreen
           ),
-        ],
+        );
+      },
+      child: Text(
+        LocalizationService.translate('hr_request_history'),
+        style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
       ),
+    ),
+  ],
+),
+
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -88,33 +77,31 @@ class _LeaveRequestFormState extends State<HrRequestForm> {
           child: ListView(
             children: [
               DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                  labelText: ' Request Type',
+                decoration: InputDecoration(
+                  labelText: LocalizationService.translate('request_type'),
                 ),
-                items: const [
+                items: [
                   DropdownMenuItem(
-                    value: 'Request for support letter - طلب تأييد شركة ',
-                    child: Text('Request for support letter - طلب تأييد شركة '),
-                  ),
-                  DropdownMenuItem(
-                    value:
-                        'Request for experience certificate - طلب شهادة خبرة',
-                    child: Text(
-                        'Request for experience certificate - طلب شهادة خبرة'),
-                  ),
-                  DropdownMenuItem(
-                    value: 'Request for company email- طلب بريد الكتروني  ',
+                    value: 'support_letter',
                     child:
-                        Text('Request for company email- طلب بريد الكتروني '),
+                        Text(LocalizationService.translate('support_letter')),
                   ),
                   DropdownMenuItem(
-                    value:
-                        ' Request for company badge - طلب الحصول على شارة الشركة',
+                    value: 'experience_certificate',
                     child: Text(
-                        ' Request for company badge - طلب الحصول على شارة الشركة'),
+                      LocalizationService.translate('experience_certificate'),
+                    ),
                   ),
-
-                  // Add more types if needed
+                  DropdownMenuItem(
+                    value: 'company_email',
+                    child: Text(
+                      LocalizationService.translate('company_email'),
+                    ),
+                  ),
+                  DropdownMenuItem(
+                    value: 'company_badge',
+                    child: Text(LocalizationService.translate('company_badge')),
+                  ),
                 ],
                 onChanged: (value) {
                   // Handle change
@@ -124,22 +111,23 @@ class _LeaveRequestFormState extends State<HrRequestForm> {
               TextFormField(
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: 'Request Date',
+                  labelText: LocalizationService.translate('request_date'),
                   suffixIcon: IconButton(
-                    icon: const Icon(Icons.calendar_today),
+                    icon: const Icon(Icons.calendar_month),
                     onPressed: () => _selectDate(context),
                   ),
                 ),
                 onTap: () => _selectDate(context),
                 controller: TextEditingController(
-                    text: '${_leaveDate.toLocal()}'.split(' ')[0]),
+                  text: '${_leaveDate.toLocal()}'.split(' ')[0],
+                ),
               ),
               const SizedBox(height: 16.0),
               TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Directed To ',
-                  hintText: "Optional",
-                  hintStyle: TextStyle(fontSize: 12),
+                decoration: InputDecoration(
+                  labelText: LocalizationService.translate('directed_to'),
+                  hintText: LocalizationService.translate('optional'),
+                  hintStyle: const TextStyle(fontSize: 12),
                 ),
                 maxLines: 3,
                 onChanged: (value) {
@@ -148,10 +136,10 @@ class _LeaveRequestFormState extends State<HrRequestForm> {
               ),
               const SizedBox(height: 16.0),
               TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Description',
-                  hintText: "Please Enter Description",
-                  hintStyle: TextStyle(fontSize: 12),
+                decoration: InputDecoration(
+                  labelText: LocalizationService.translate('description'),
+                  hintText: LocalizationService.translate('enter_description'),
+                  hintStyle: const TextStyle(fontSize: 12),
                 ),
                 maxLines: 3,
                 onChanged: (value) {
@@ -168,14 +156,14 @@ class _LeaveRequestFormState extends State<HrRequestForm> {
                   onTap: () {
                     // Handle file attachment
                   },
-                  child: const Padding(
-                    padding: EdgeInsets.all(16.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.attach_file),
-                        SizedBox(width: 8.0),
-                        Text('Attach'),
+                        const Icon(Icons.attach_file),
+                        const SizedBox(width: 8.0),
+                        Text(LocalizationService.translate('attach')),
                       ],
                     ),
                   ),
@@ -199,14 +187,13 @@ class _LeaveRequestFormState extends State<HrRequestForm> {
                           size: 16,
                           color: Colors.black,
                         ),
-                        label: const Text(
-                          'Discard',
-                          style: TextStyle(color: Colors.black),
+                        label: Text(
+                          LocalizationService.translate('discard'),
+                          style: const TextStyle(color: Colors.black),
                         ),
                         style: OutlinedButton.styleFrom(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                6.0), // Adjust radius as needed
+                            borderRadius: BorderRadius.circular(6.0),
                           ),
                           side: const BorderSide(
                             color: Color.fromARGB(255, 112, 112, 112),
@@ -229,10 +216,11 @@ class _LeaveRequestFormState extends State<HrRequestForm> {
                           size: 16,
                           color: Color.fromARGB(255, 255, 255, 255),
                         ),
-                        label: const Text(
-                          'Save',
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 255, 255, 255)),
+                        label: Text(
+                          LocalizationService.translate('save'),
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                          ),
                         ),
                         style: OutlinedButton.styleFrom(
                           backgroundColor: Colors.red,

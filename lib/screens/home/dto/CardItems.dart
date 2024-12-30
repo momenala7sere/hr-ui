@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hr/localization_service.dart';
 import 'package:hr/screens/Track_My_Request.dart';
 import 'package:hr/screens/hr/Hr_History.dart';
 import 'package:hr/screens/hr/Hr_Requeste.dart';
@@ -11,43 +12,43 @@ import '../components/CardData.dart';
 
 final List<CardData> cardItems = [
   CardData(
-    title: 'Vacation Request',
+    title: LocalizationService.translate('vacation_request'),
     icon: Icons.person_add,
     color: Colors.green,
     route: (context) => const VacationRequestForm(),
   ),
   CardData(
-    title: 'Leave Request',
+    title: LocalizationService.translate('leave_request'),
     icon: Icons.schedule,
     color: Colors.yellow,
     route: (context) => const LeaveRequestForm(),
   ),
   CardData(
-    title: 'Vacations History',
+    title: LocalizationService.translate('vacations_history'),
     icon: Icons.pending_actions,
     color: Colors.purple,
     route: (context) => const VacationHistoryApp(),
   ),
   CardData(
-    title: 'Leaves History',
+    title: LocalizationService.translate('leaves_history'),
     icon: Icons.content_paste_go_rounded,
     color: Colors.black,
     route: (context) => const LeaveHistoryApp(),
   ),
   CardData(
-    title: 'HR Request',
+    title: LocalizationService.translate('hr_request'),
     icon: Icons.groups,
     color: Colors.blueGrey,
     route: (context) => const HrRequestForm(),
   ),
   CardData(
-    title: 'HR Requests History',
+    title: LocalizationService.translate('hr_requests_history'),
     icon: Icons.history,
     color: Colors.purpleAccent,
     route: (context) => const HrHistoryRequestApp(),
   ),
   CardData(
-    title: 'Track My Request',
+    title: LocalizationService.translate('track_my_request'),
     icon: Icons.pin_drop,
     color: Colors.indigoAccent,
     route: (context) => const TrackMyRequest(),

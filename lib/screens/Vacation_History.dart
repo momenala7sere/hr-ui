@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hr/localization_service.dart'; // Import LocalizationService
 import 'package:hr/screens/home/HomePage.dart';
 import 'package:intl/intl.dart';
 
@@ -25,7 +26,7 @@ class VacationHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Vacations History'),
+        title: Text(LocalizationService.translate('vacations_history')),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
@@ -33,9 +34,14 @@ class VacationHistoryScreen extends StatelessWidget {
             color: Color.fromARGB(255, 0, 0, 0),
           ),
           onPressed: () {
+            // Pass current locale to HomePage when navigating back
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const HomePage ()),
+              MaterialPageRoute(
+                builder: (context) => HomePage(
+                  currentLocale: Localizations.localeOf(context), // Pass locale
+                ),
+              ),
             );
           },
         ),
@@ -88,8 +94,8 @@ class _SearchFormState extends State<SearchForm> {
         TextField(
           controller: _fromDateController,
           decoration: InputDecoration(
-            labelText: 'From Date',
-            hintText: 'dd-mm-yyyy',
+            labelText: LocalizationService.translate('from_date'),
+            hintText: LocalizationService.translate('date_format'),
             border: const OutlineInputBorder(),
             suffixIcon: IconButton(
               icon: const Icon(Icons.calendar_month),
@@ -103,8 +109,8 @@ class _SearchFormState extends State<SearchForm> {
         TextField(
           controller: _toDateController,
           decoration: InputDecoration(
-            labelText: 'To Date',
-            hintText: 'dd-mm-yyyy',
+            labelText: LocalizationService.translate('to_date'),
+            hintText: LocalizationService.translate('date_format'),
             border: const OutlineInputBorder(),
             suffixIcon: IconButton(
               icon: const Icon(Icons.calendar_month),
@@ -128,10 +134,10 @@ class _SearchFormState extends State<SearchForm> {
                 borderRadius: BorderRadius.circular(5.0),
               ),
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.search,
@@ -140,8 +146,8 @@ class _SearchFormState extends State<SearchForm> {
                   ),
                 ),
                 Text(
-                  'Search',
-                  style: TextStyle(
+                  LocalizationService.translate('search'),
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                   ),
@@ -171,7 +177,6 @@ class VacationHistoryList extends StatelessWidget {
           to: '10/06/2023',
           status: 'Requested',
         ),
-        // Add more VacationHistoryCard widgets here
       ],
     );
   }
@@ -206,21 +211,29 @@ class VacationHistoryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('ID: $id',
-                style: const TextStyle(fontWeight: FontWeight.bold)),
+            Text(
+              '${LocalizationService.translate('id')}: $id',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 8.0),
-            Text('Employee: $employee'),
+            Text(
+              '${LocalizationService.translate('employee')}: $employee',
+            ),
             const SizedBox(height: 8.0),
-            Text('Request Date: $requestDate'),
+            Text(
+              '${LocalizationService.translate('request_date')}: $requestDate',
+            ),
             const SizedBox(height: 8.0),
-            Text('Request Type: $requestType'),
+            Text(
+              '${LocalizationService.translate('request_type')}: $requestType',
+            ),
             const SizedBox(height: 8.0),
-            Text('From: $from'),
+            Text('${LocalizationService.translate('from')}: $from'),
             const SizedBox(height: 8.0),
-            Text('To: $to'),
+            Text('${LocalizationService.translate('to')}: $to'),
             const SizedBox(height: 8.0),
             Chip(
-              label: Text(status),
+              label: Text(LocalizationService.translate(status)),
               backgroundColor: Colors.blue,
               labelStyle: const TextStyle(color: Colors.white),
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hr/localization_service.dart';
 import 'package:hr/screens/Vacation_History.dart';
 
 class VacationRequestForm extends StatefulWidget {
@@ -58,9 +59,9 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'New Vacation',
-          style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+        title: Text(
+          LocalizationService.translate('new_vacation'),
+          style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
         ),
         actions: [
           TextButton(
@@ -68,12 +69,13 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const VacationHistoryScreen()),
+                  builder: (context) => const VacationHistoryScreen(),
+                ),
               );
             },
-            child: const Text(
-              'Vacations History',
-              style: TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
+            child: Text(
+              LocalizationService.translate('vacation_history'),
+              style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
             ),
           ),
         ],
@@ -85,43 +87,39 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
           child: ListView(
             children: [
               DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                  labelText: 'Vacation Type',
+                decoration: InputDecoration(
+                  labelText: LocalizationService.translate('vacation_type'),
                 ),
-                items: const [
+                items: [
                   DropdownMenuItem(
-                    value: 'Funeral ',
-                    child: Text('Funeral '),
+                    value: 'funeral',
+                    child: Text(LocalizationService.translate('funeral')),
                   ),
                   DropdownMenuItem(
                     value: 'sick',
-                    child: Text('Sick'),
+                    child: Text(LocalizationService.translate('sick')),
                   ),
                   DropdownMenuItem(
-                    value: 'Official ',
-                    child: Text('Official '),
+                    value: 'official',
+                    child: Text(LocalizationService.translate('official')),
                   ),
                   DropdownMenuItem(
-                    value: 'maternity ',
-                    child: Text('maternity '),
+                    value: 'maternity',
+                    child: Text(LocalizationService.translate('maternity')),
                   ),
                   DropdownMenuItem(
-                    value: 'Faction in exchange for working ',
-                    child: Text('Faction in exchange for working '),
+                    value: 'overtime',
+                    child: Text(LocalizationService.translate('overtime')),
                   ),
                   DropdownMenuItem(
-                    value: 'Overtime  ',
-                    child: Text('Overtime  '),
+                    value: 'unpaid_vacation',
+                    child:
+                        Text(LocalizationService.translate('unpaid_vacation')),
                   ),
                   DropdownMenuItem(
-                    value: 'Unpaid vacation   ',
-                    child: Text('Unpaid vacation '),
+                    value: 'umrah',
+                    child: Text(LocalizationService.translate('umrah')),
                   ),
-                  DropdownMenuItem(
-                    value: 'Umrah',
-                    child: Text('Umrah '),
-                  ),
-                  // Add more types if needed
                 ],
                 onChanged: (value) {
                   // Handle change
@@ -131,7 +129,7 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
               TextFormField(
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: 'Start Date',
+                  labelText: LocalizationService.translate('start_date'),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.calendar_month),
                     onPressed: () => _selectDate(context, true),
@@ -143,7 +141,7 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
               TextFormField(
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: 'End Date',
+                  labelText: LocalizationService.translate('end_date'),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.calendar_month),
                     onPressed: () => _selectDate(context, false),
@@ -153,10 +151,9 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
               ),
               const SizedBox(height: 16.0),
               TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Description',
-                  hintText: "Please Enter Description",
-                  hintStyle: TextStyle(fontSize: 12),
+                decoration: InputDecoration(
+                  labelText: LocalizationService.translate('description'),
+                  hintText: LocalizationService.translate('enter_description'),
                 ),
                 maxLines: 3,
                 onChanged: (value) {
@@ -165,10 +162,10 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
               ),
               const SizedBox(height: 16.0),
               TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Employee Address',
-                  hintText: "Please Enter Address",
-                  hintStyle: TextStyle(fontSize: 10),
+                decoration: InputDecoration(
+                  labelText:
+                      LocalizationService.translate('employee_address'),
+                  hintText: LocalizationService.translate('enter_address'),
                 ),
                 onChanged: (value) {
                   _employeeAddress = value;
@@ -176,8 +173,9 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
               ),
               const SizedBox(height: 16.0),
               TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Alternative Employee',
+                decoration: InputDecoration(
+                  labelText:
+                      LocalizationService.translate('alternative_employee'),
                 ),
                 onChanged: (value) {
                   _alternativeEmployee = value;
@@ -185,10 +183,9 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
               ),
               const SizedBox(height: 16.0),
               TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Employee Phone No.',
-                  hintText: "Please Enter Your Phone Number ",
-                  hintStyle: TextStyle(fontSize: 10),
+                decoration: InputDecoration(
+                  labelText: LocalizationService.translate('phone_number'),
+                  hintText: LocalizationService.translate('enter_phone'),
                 ),
                 onChanged: (value) {
                   _employeePhoneNumber = value;
@@ -204,14 +201,14 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
                   onTap: () {
                     // Handle file attachment
                   },
-                  child: const Padding(
-                    padding: EdgeInsets.all(16.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.attach_file),
-                        SizedBox(width: 8.0),
-                        Text('Attach'),
+                        const Icon(Icons.attach_file),
+                        const SizedBox(width: 8.0),
+                        Text(LocalizationService.translate('attach')),
                       ],
                     ),
                   ),
@@ -235,9 +232,9 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
                           size: 16,
                           color: Colors.black,
                         ),
-                        label: const Text(
-                          'Discard',
-                          style: TextStyle(color: Colors.black),
+                        label: Text(
+                          LocalizationService.translate('discard'),
+                          style: const TextStyle(color: Colors.black),
                         ),
                         style: OutlinedButton.styleFrom(
                           shape: RoundedRectangleBorder(
@@ -264,9 +261,9 @@ class _VacationRequestFormState extends State<VacationRequestForm> {
                           size: 16,
                           color: Color.fromARGB(255, 255, 255, 255),
                         ),
-                        label: const Text(
-                          'Save',
-                          style: TextStyle(
+                        label: Text(
+                          LocalizationService.translate('save'),
+                          style: const TextStyle(
                             color: Color.fromARGB(255, 255, 255, 255),
                           ),
                         ),

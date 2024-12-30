@@ -1,6 +1,5 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
+import 'package:hr/localization_service.dart'; // Import localization service
 import 'package:hr/screens/home/HomePage.dart';
 
 Widget buildDrawer() {
@@ -8,33 +7,42 @@ Widget buildDrawer() {
     child: ListView(
       padding: EdgeInsets.zero,
       children: [
-        const UserAccountsDrawerHeader(
+        UserAccountsDrawerHeader(
           accountName: Text(
-            "Admin User",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            LocalizationService.translate("admin_user"),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           accountEmail: Text(
-            "Human Resources-HR",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            LocalizationService.translate("human_resources"),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
-          currentAccountPicture: ClipOval(
+          currentAccountPicture: const ClipOval(
             child: Image(
               image: AssetImage("assets/images/karlogo.png"),
               fit: BoxFit.cover,
             ),
           ),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/city.jpg"),
               fit: BoxFit.cover,
             ),
           ),
         ),
-        buildDrawerItem(Icons.account_circle_rounded, 'Employee code :0003'),
+        buildDrawerItem(
+          Icons.account_circle_rounded,
+          LocalizationService.translate("employee_code"),
+        ),
         buildDivider(),
-        buildDrawerItem(Icons.apartment, 'Company :Khurmala Erbil Office'),
+        buildDrawerItem(
+          Icons.apartment,
+          LocalizationService.translate("company"),
+        ),
         buildDivider(),
-        buildDrawerItem(Icons.calendar_month, 'Hiring Date :01/04/2019'),
+        buildDrawerItem(
+          Icons.calendar_month,
+          LocalizationService.translate("hiring_date"),
+        ),
         buildDivider(),
       ],
     ),
@@ -56,7 +64,10 @@ Widget buildEndDrawer() {
                   icon: const Icon(Icons.home),
                   onPressed: () {
                     MaterialPageRoute(
-                      builder: (context) => const HomePage(),
+                      builder: (context) => HomePage(
+                        currentLocale:
+                            Localizations.localeOf(context), // Pass locale
+                      ),
                     );
                   },
                 ),
@@ -65,9 +76,9 @@ Widget buildEndDrawer() {
                 const SizedBox(width: 13.0),
                 const Icon(Icons.notifications),
                 const SizedBox(width: 13.0),
-                const Text(
-                  'Employee Code :0003 ',
-                  style: TextStyle(
+                Text(
+                  LocalizationService.translate("employee_name"),
+                  style: const TextStyle(
                     fontSize: 14.0,
                     fontWeight: FontWeight.bold,
                   ),
@@ -82,15 +93,29 @@ Widget buildEndDrawer() {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            buildStatusContainer(Icons.person, 'Annual Leave', '24 Days'),
-            buildStatusContainer(Icons.hotel, 'Sick Leave', '30 Days'),
+            buildStatusContainer(
+              Icons.person,
+              LocalizationService.translate("annual_leave"),
+              LocalizationService.translate("annual_leave_days"),
+            ),
+            buildStatusContainer(
+              Icons.hotel,
+              LocalizationService.translate("sick_leave"),
+              LocalizationService.translate("sick_leave_days"),
+            ),
           ],
         ),
         const SizedBox(height: 20),
         buildDivider(),
-        buildStatusRow('Requested Vacations', '0 Days'),
+        buildStatusRow(
+          LocalizationService.translate("requested_vacations"),
+          LocalizationService.translate("requested_vacation_days"),
+        ),
         buildDivider(),
-        buildStatusRow('Remaining Sick Leave', '30 Days'),
+        buildStatusRow(
+          LocalizationService.translate("remaining_sick_leave"),
+          LocalizationService.translate("remaining_sick_leave_days"),
+        ),
       ],
     ),
   );

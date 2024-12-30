@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hr/screens/home/HomePage.dart';
-
+import 'package:hr/localization_service.dart'; // For localization
 import 'package:intl/intl.dart';
 
 void main() {
@@ -26,8 +26,8 @@ class LeaveHistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        title: const Text('Leaves History'),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        title: Text(LocalizationService.translate('leaves_history')),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back,
@@ -35,10 +35,14 @@ class LeaveHistoryScreen extends StatelessWidget {
             color: Color.fromARGB(255, 0, 0, 0),
           ),
           onPressed: () {
-           Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => const HomePage ()),
-          );
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePage(
+                  currentLocale: Localizations.localeOf(context), // Pass locale
+                ),
+              ),
+            );
           },
         ),
       ),
@@ -54,7 +58,6 @@ class LeaveHistoryScreen extends StatelessWidget {
     );
   }
 }
-
 class SearchForm extends StatefulWidget {
   const SearchForm({super.key});
 
@@ -89,8 +92,8 @@ class _SearchFormState extends State<SearchForm> {
         TextField(
           controller: _fromDateController,
           decoration: InputDecoration(
-            labelText: 'From Date',
-            hintText: 'dd-mm-yyyy',
+            labelText: LocalizationService.translate('from_date'),
+            hintText: LocalizationService.translate('date_format_hint'),
             border: const OutlineInputBorder(),
             suffixIcon: IconButton(
               icon: const Icon(Icons.calendar_month),
@@ -104,8 +107,8 @@ class _SearchFormState extends State<SearchForm> {
         TextField(
           controller: _toDateController,
           decoration: InputDecoration(
-            labelText: 'To Date',
-            hintText: 'dd-mm-yyyy',
+            labelText: LocalizationService.translate('to_date'),
+            hintText: LocalizationService.translate('date_format_hint'),
             border: const OutlineInputBorder(),
             suffixIcon: IconButton(
               icon: const Icon(Icons.calendar_month),
@@ -129,10 +132,10 @@ class _SearchFormState extends State<SearchForm> {
                 borderRadius: BorderRadius.circular(5.0),
               ),
             ),
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
+                const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.search,
@@ -141,8 +144,8 @@ class _SearchFormState extends State<SearchForm> {
                   ),
                 ),
                 Text(
-                  'Search',
-                  style: TextStyle(
+                  LocalizationService.translate('search'),
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                   ),

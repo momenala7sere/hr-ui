@@ -1,6 +1,5 @@
-// ignore_for_file: file_names, library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
+import 'package:hr/localization_service.dart'; // Import localization service
 import 'package:intl/intl.dart';
 
 void main() {
@@ -18,7 +17,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 class TrackMyRequest extends StatefulWidget {
   const TrackMyRequest({super.key});
 
@@ -92,21 +90,19 @@ class _TrackMyRequestState extends State<TrackMyRequest> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-  title: const Row( // Use Row to position elements horizontally
-    children: [
-      
-      SizedBox(width: 8.0), // Add spacing between icon and title
-      Text('Track My Requests'),
-    ],
-  ),
-),
-
+        title: Row(
+          children: [
+            const SizedBox(width: 8.0), // Add spacing between icon and title
+            Text(LocalizationService.translate('track_my_requests')),
+          ],
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('From Date'),
+            Text(LocalizationService.translate('from_date')),
             GestureDetector(
               onTap: () => _selectDate(context, true),
               child: AbsorbPointer(
@@ -114,7 +110,7 @@ class _TrackMyRequestState extends State<TrackMyRequest> {
                   readOnly: true,
                   decoration: InputDecoration(
                     hintText: fromDate == null
-                        ? 'From Date'
+                        ? LocalizationService.translate('from_date')
                         : DateFormat('yyyy-MM-dd').format(fromDate!),
                     suffixIcon: const Icon(Icons.calendar_month),
                   ),
@@ -122,7 +118,7 @@ class _TrackMyRequestState extends State<TrackMyRequest> {
               ),
             ),
             const SizedBox(height: 8),
-            const Text('To Date'),
+            Text(LocalizationService.translate('to_date')),
             GestureDetector(
               onTap: () => _selectDate(context, false),
               child: AbsorbPointer(
@@ -130,7 +126,7 @@ class _TrackMyRequestState extends State<TrackMyRequest> {
                   readOnly: true,
                   decoration: InputDecoration(
                     hintText: toDate == null
-                        ? 'To Date'
+                        ? LocalizationService.translate('to_date')
                         : DateFormat('yyyy-MM-dd').format(toDate!),
                     suffixIcon: const Icon(Icons.calendar_month),
                   ),
@@ -138,7 +134,7 @@ class _TrackMyRequestState extends State<TrackMyRequest> {
               ),
             ),
             const SizedBox(height: 8),
-            const Text('Request Type'),
+            Text(LocalizationService.translate('request_type')),
             DropdownButton<String>(
               value: requestType,
               isExpanded: true,
@@ -151,39 +147,34 @@ class _TrackMyRequestState extends State<TrackMyRequest> {
                   .map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Text(
+                    LocalizationService.translate(value), // Translate value
+                  ),
                 );
               }).toList(),
             ),
             const SizedBox(height: 8),
             Center(
-              // ignore: sized_box_for_whitespace
-              child: Container(
-                width: double.infinity, // Make the button take full width
-                height: 50, // Set a fixed height for the button
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xffCE5E52),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20), // Border radius
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle search
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xffCE5E52),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.search, color: Colors.white),
+                    const SizedBox(width: 8),
+                    Text(
+                      LocalizationService.translate('search'),
+                      style: const TextStyle(color: Colors.white, fontSize: 20),
                     ),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.search,
-                        color: Colors.white,
-                      ), // Icon inside the button
-                      SizedBox(
-                          width: 8), // Add some space between icon and text
-                      Text(
-                        'Search',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ],
-                  ),
+                  ],
                 ),
               ),
             ),
@@ -202,9 +193,14 @@ class _TrackMyRequestState extends State<TrackMyRequest> {
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Request Type: ${request['requestType']}'),
                           Text(
-                              'Request Date: ${DateFormat('yyyy-MM-dd HH:mm:ss').format(request['requestDate'])}'),
+                            LocalizationService.translate('request_type') +
+                                ': ${request['requestType']}',
+                          ),
+                          Text(
+                            LocalizationService.translate('request_date') +
+                                ': ${DateFormat('yyyy-MM-dd HH:mm:ss').format(request['requestDate'])}',
+                          ),
                         ],
                       ),
                       trailing: ElevatedButton(

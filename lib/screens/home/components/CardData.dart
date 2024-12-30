@@ -12,4 +12,14 @@ class CardData {
     required this.color,
     this.route,
   });
+
+  // Properly implemented copyWith method
+  CardData copyWith({String? title, IconData? icon, Color? color, Widget Function(BuildContext)? route}) {
+    return CardData(
+      title: title ?? this.title,
+      icon: icon ?? this.icon,
+      color: color ?? this.color,
+      route: route ?? this.route,
+    );
+  }
 }

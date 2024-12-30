@@ -1,9 +1,12 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:hr/localization_service.dart';
 
 class ResetPassword extends StatelessWidget {
-  const ResetPassword({super.key});
+  final Locale currentLocale;
+
+  const ResetPassword({super.key, required this.currentLocale});
 
   @override
   Widget build(BuildContext context) {
@@ -16,30 +19,29 @@ class ResetPassword extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.restart_alt,
                     color: Colors.white,
                     size: 40,
-                  ), // Replace with your desired icon
-                  SizedBox(width: 10.0), // Add spacing between icon and text
+                  ),
+                  const SizedBox(width: 10.0),
                   Text(
-                    'Reset Password',
-                    style: TextStyle(
-                        fontSize: 34.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                    LocalizationService.translate('reset_password'),
+                    style: const TextStyle(
+                      fontSize: 34.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                'Please Enter Your Email Below and we will send you a New Password',
-                style: TextStyle(
+              const SizedBox(height: 20),
+              Text(
+                LocalizationService.translate('enter_email'),
+                style: const TextStyle(
                   fontSize: 12.0,
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -47,59 +49,53 @@ class ResetPassword extends StatelessWidget {
               ),
               const SizedBox(height: 100.0),
               TextFormField(
-                    decoration: InputDecoration(
-                      prefixIcon: const Icon(Icons.mail, color: Colors.white),
-                      labelText: 'Please Enter Your Email',
-                      labelStyle: const TextStyle(color: Colors.white),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: const BorderSide(color: Colors.white),
-                      ),
-                    ),
-                    style: const TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.mail, color: Colors.white),
+                  labelText: LocalizationService.translate('email_placeholder'),
+                  labelStyle: const TextStyle(color: Colors.white),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(color: Colors.white),
                   ),
+                ),
+                style: const TextStyle(color: Colors.white),
+              ),
               const SizedBox(height: 20.0),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        10.0), // Adjust corner radius as needed
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
                   minimumSize: Size(MediaQuery.of(context).size.width, 40.0),
                   backgroundColor: const Color(0xffCE5E52),
                 ),
-                onPressed: () {},
-                child: const Text(
-                  'Reset Password',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                onPressed: () {
+                  // Add your reset password logic here
+                },
+                child: Text(
+                  LocalizationService.translate('submit'),
+                  style: const TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    // Wrap both icon and text in GestureDetector
                     onTap: () {
-                      Navigator.of(context).pushReplacementNamed(
-                          '/login'); // Navigate to Login_page.dart
+                      Navigator.of(context).pushReplacementNamed('/login');
                     },
-                    child: const Row(
-                      // Nested Row for better alignment
+                    child: Row(
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.arrow_back_ios_rounded,
                           color: Colors.white,
                           size: 20.0,
                         ),
-                        SizedBox(
-                          width: 5,
-                        ),
+                        const SizedBox(width: 5),
                         Text(
-                          'Back To Login Page',
-                          style: TextStyle(
+                          LocalizationService.translate('back_to_login'),
+                          style: const TextStyle(
                             fontSize: 16.0,
                             color: Colors.white,
                           ),
