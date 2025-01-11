@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart'; // Added for Provider support
+import 'package:flutter_bloc/flutter_bloc.dart'; // Added for Bloc support
 import 'locale_provider.dart'; // Import LocaleProvider
 import 'localization_service.dart';
 import 'screens/login_page.dart';
@@ -7,10 +8,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hr/screens/ResetPasswordPage.dart';
 import 'package:hr/screens/home/HomePage.dart';
 
+import 'generic_bloc.dart'; // Import GenericBloc
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalizationService.load(const Locale('en', 'US')); // Default language
-  runApp(HRApp());
+  runApp(const HRApp());
 }
 
 class HRApp extends StatelessWidget {
@@ -18,8 +21,20 @@ class HRApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => LocaleProvider(), // Provide LocaleProvider
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => LocaleProvider(), // Provide LocaleProvider
+        ),
+        BlocProvider(
+          create: (_) => GenericBloc(
+            submitDataCallback: (data) async {
+              // Default callback for GenericBloc (can be overridden in screens)
+              throw Exception("No callback provided for this action.");
+            },
+          ),
+        ),
+      ],
       child: Consumer<LocaleProvider>(
         builder: (context, localeProvider, _) {
           return MaterialApp(
